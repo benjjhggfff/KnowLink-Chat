@@ -1,0 +1,66 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.wrapper {
+  flex-shrink: 0;
+  padding: 1rem;
+  background: $color-surface-elevated;
+  border-top: 1px solid $color-slate-200;
+
+  @media (min-width: $breakpoint-sm) {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+.inner {
+  // max-width: $content-max-sm;
+  margin: 0 auto;
+}
+
+.composer {
+  padding: 0.5rem;
+  background: $color-slate-50;
+  border: 1px solid $color-slate-200;
+  border-radius: $radius-md;
+  box-shadow: $shadow-sm;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:focus-within {
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 2px rgb(37 99 235 / 0.2);
+  }
+}
+
+.textarea {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: $color-slate-800;
+  resize: none;
+  background: transparent;
+  border: none;
+  outline: none;
+
+  &::placeholder {
+    color: $color-slate-400;
+  }
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.5rem 0;
+  border-top: 1px solid rgb(226 232 240 / 0.8);
+}
+
+.hint {
+  font-size: 0.75rem;
+  color: $color-slate-400;
+}
+
+.sendBtn {
+  @include btn-primary;
+}
