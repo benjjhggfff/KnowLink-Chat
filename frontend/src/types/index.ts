@@ -10,6 +10,8 @@ export interface ChatSession {
   title: string
   messages: Message[]
   createdAt: Date
+  pinned?: boolean
+  updatedAt?: Date
 }
 
 export interface KnowledgeItem {
@@ -25,3 +27,5 @@ export interface ApiResponse<T> {
   data: T
   message?: string
 }
+
+export * from './user'

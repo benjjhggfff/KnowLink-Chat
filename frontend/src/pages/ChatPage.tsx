@@ -1,20 +1,24 @@
-import { useState, useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import { Sidebar } from '@/components/Sidebar'
 import { MessageBubble } from '@/components/MessageBubble'
 import { ChatInput } from '@/components/ChatInput'
-import type { ChatSession, Message } from '@/types'
+import type { Message } from '@/types'
 import { generateId } from '@/utils'
 import { chatApi } from '@/api'
+import { useChatSessions } from '@/hooks/useChatSessions'
 import styles from './ChatPage.module.scss'
 
 export function ChatPage() {
-  const [sessions, setSessions] = useState<ChatSession[]>([])
-  const [activeSession, setActiveSession] = useState<string | null>(null)
+  const {
+    sessions,
+    activeSession,
+    setActiveSession,
+    createNewSession,
+    updateSessionMessages,
+    updateSessionMeta,
+    getActiveSession,
+  } = useChatSessions()
   const messagesEndRef = useRef<HTMLDivElement>(null)
-
-  const getActiveSession = () => {
-    return sessions.find((s) => s.id === activeSession)
-  }
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -24,21 +28,10 @@ export function ChatPage() {
     scrollToBottom()
   }, [getActiveSession()?.messages])
 
-  const createNewSession = () => {
-    const newSession: ChatSession = {
-      id: generateId(),
-      title: '新对话',
-      messages: [],
-      createdAt: new Date(),
-    }
-    setSessions([newSession, ...sessions])
-    setActiveSession(newSession.id)
-  }
-
   const handleSendMessage = async (content: string) => {
-    if (!activeSession) {
-      createNewSession()
-      return
+    let sessionId = activeSession
+    if (!sessionId) {
+      sessionId = createNewSession()
     }
 
     const userMessage: Message = {
@@ -48,13 +41,8 @@ export function ChatPage() {
       timestamp: new Date(),
     }
 
-    setSessions((prev) =>
-      prev.map((s) =>
-        s.id === activeSession
-          ? { ...s, messages: [...s.messages, userMessage], title: content.slice(0, 20) }
-          : s
-      )
-    )
+    updateSessionMeta(sessionId, { title: content.slice(0, 20) })
+    updateSessionMessages(sessionId, (msgs) => [...msgs, userMessage])
 
     try {
       const response = await chatApi.sendMessage(content)
@@ -64,12 +52,7 @@ export function ChatPage() {
         role: 'assistant',
         timestamp: new Date(),
       }
-
-      setSessions((prev) =>
-        prev.map((s) =>
-          s.id === activeSession ? { ...s, messages: [...s.messages, assistantMessage] } : s
-        )
-      )
+      updateSessionMessages(sessionId, (msgs) => [...msgs, assistantMessage])
     } catch {
       const errorMessage: Message = {
         id: generateId(),
@@ -77,12 +60,7 @@ export function ChatPage() {
         role: 'assistant',
         timestamp: new Date(),
       }
-
-      setSessions((prev) =>
-        prev.map((s) =>
-          s.id === activeSession ? { ...s, messages: [...s.messages, errorMessage] } : s
-        )
-      )
+      updateSessionMessages(sessionId, (msgs) => [...msgs, errorMessage])
     }
   }
 

@@ -3,7 +3,7 @@
 .row {
   display: flex;
   gap: 0.75rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: var(--message-gap, 1.25rem);
 }
 
 .rowUser {
@@ -34,7 +34,7 @@
 
 .bubble {
   max-width: min(85%, 42rem);
-  padding: 0.75rem 1rem;
+  padding: var(--message-padding-y, 0.75rem) 1rem;
   border-radius: $radius-2xl;
   box-shadow: $shadow-sm;
 }
@@ -46,9 +46,9 @@
 }
 
 .bubbleAssistant {
-  color: $color-slate-800;
-  background: $color-surface-elevated;
-  border: 1px solid $color-slate-200;
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
   border-top-left-radius: $radius-sm;
 }
 

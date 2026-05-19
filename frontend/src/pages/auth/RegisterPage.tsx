@@ -1,6 +1,7 @@
 import { useState, useEffect, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { isValidEmail, register, sendVerificationCode } from '@/utils/auth'
+import { notifyAuthChange } from '@/context/UserSettingsContext'
 import styles from './AuthPage.module.scss'
 
 const COUNTDOWN_SECONDS = 60
@@ -54,6 +55,7 @@ export function RegisterPage() {
       return
     }
 
+    notifyAuthChange()
     navigate('/', { replace: true })
   }
 

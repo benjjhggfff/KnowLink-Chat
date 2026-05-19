@@ -1,5 +1,28 @@
 @use 'variables' as *;
 
+:root,
+[data-theme='light'] {
+  --bg-page: #{$color-surface};
+  --bg-elevated: #{$color-surface-elevated};
+  --bg-muted: #{$color-slate-50};
+  --text-primary: #{$color-text};
+  --text-secondary: #{$color-slate-600};
+  --text-muted: #{$color-slate-500};
+  --border-color: #{$color-border};
+  --nav-shadow: #{$shadow-nav};
+}
+
+[data-theme='dark'] {
+  --bg-page: #0f172a;
+  --bg-elevated: #1e293b;
+  --bg-muted: #0b1220;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+  --nav-shadow: 0 1px 2px rgb(0 0 0 / 0.3);
+}
+
 *,
 *::before,
 *::after {
@@ -15,8 +38,19 @@ body,
 
 body {
   font-family: $font-sans;
-  color: $color-text;
-  background: $color-surface;
+  color: var(--text-primary);
+  background: var(--bg-page);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+[data-density='compact'] {
+  --message-gap: 0.75rem;
+  --message-padding-y: 0.5rem;
+}
+
+[data-density='comfortable'] {
+  --message-gap: 1.25rem;
+  --message-padding-y: 0.75rem;
 }

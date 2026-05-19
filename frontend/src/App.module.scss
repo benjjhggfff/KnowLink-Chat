@@ -11,9 +11,9 @@
 .nav {
   flex-shrink: 0;
   padding: 0.75rem 1rem;
-  background: $color-surface-elevated;
-  border-bottom: 1px solid $color-border;
-  box-shadow: $shadow-nav;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--nav-shadow);
 }
 
 .navInner {
@@ -60,7 +60,7 @@
   font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: -0.025em;
-  color: $color-slate-800;
+  color: var(--text-primary);
 }
 
 .navLink {

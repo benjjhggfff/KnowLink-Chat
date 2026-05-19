@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { login } from '@/utils/auth'
+import { notifyAuthChange } from '@/context/UserSettingsContext'
 import styles from './AuthPage.module.scss'
 
 export function LoginPage() {
@@ -23,6 +24,7 @@ export function LoginPage() {
       return
     }
 
+    notifyAuthChange()
     navigate('/', { replace: true })
   }
 
