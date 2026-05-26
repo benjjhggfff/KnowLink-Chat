@@ -74,15 +74,15 @@ export function ProfileSection() {
         <div className={styles.card}>
           <div className={styles.infoGrid}>
             <div className={styles.infoRow}>
-              <span className={styles.infoLabel}>用户名</span>
+              <span className={styles.label}>用户名</span>
               <span className={styles.infoValue}>{profile.username}</span>
             </div>
             <div className={styles.infoRow}>
-              <span className={styles.infoLabel}>绑定邮箱</span>
+              <span className={styles.label}>绑定邮箱</span>
               <span className={styles.infoValue}>{profile.email}</span>
             </div>
             <div className={styles.infoRow}>
-              <span className={styles.infoLabel}>注册时间</span>
+              <span className={styles.label}>注册时间</span>
               <span className={styles.infoValue}>{formatDate(new Date(profile.registeredAt))}</span>
             </div>
           </div>
@@ -95,8 +95,7 @@ export function ProfileSection() {
       ) : (
         <form className={styles.card} onSubmit={handleSubmit}>
           <h3 className={styles.cardTitle}>编辑资料</h3>
-          {error && <p className={styles.error}>{error}</p>}
-          {success && <p className={styles.success}>{success}</p>}
+          
 
           <div className={styles.field}>
             <label className={styles.label} htmlFor="profile-username">

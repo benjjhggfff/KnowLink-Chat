@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { formatDate } from '@/utils'
 import { changePassword, deleteAccount, getLoginLogs } from '@/utils/auth'
+import { ProfileSection } from '../sections/ProfileSection'
 import { notifyAuthChange } from '@/context/UserSettingsContext'
 import styles from '../UserCenterPage.module.scss'
 
@@ -49,7 +50,9 @@ export function SecuritySection() {
   }
 
   return (
+  
     <div className={styles.panel}>
+       <ProfileSection />
       <h2 className={styles.panelTitle}>账号安全</h2>
       <p className={styles.panelDesc}>管理密码与查看最近登录记录</p>
 
